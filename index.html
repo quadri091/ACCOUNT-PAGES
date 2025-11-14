@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compact Sign Up</title>
+    <style>
+      body {
+        background: linear-gradient(135deg, #6a11cb 10%, #2575fc 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+        height: 100vh;
+        margin: 0;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+      .signup-card {
+        background-color: #ffffff;
+        padding: 10px 25px;
+        border-radius: 8px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 300px;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      h2 {
+        text-align: center;
+        color: #4a4adf;
+        margin-bottom: 20px;
+        font-size: 1.4em;
+        font-weight: 600;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #333;
+        font-size: 0.9em;
+      }
+
+      input {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+        transition: all 0.3s;
+        font-size: 0.9em;
+      }
+
+      input:focus {
+        border-color: #5d5dff;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(93, 93, 255, 0.2);
+      }
+
+      button {
+        width: 100%;
+        background-color: #5d5dff;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 600;
+        margin-top: 5px;
+        transition: all 0.3s;
+      }
+
+      .signup-btn:hover {
+        background-color: #4a4adf;
+        box-shadow: 0 4px 10px rgba(93, 93, 255, 0.3);
+      }
+
+      .login-text {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 0.8em;
+        color: #666;
+      }
+
+      .login-text a {
+        color: #5d5dff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .login-text a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="signup-card">
+      <h2>Sign Up</h2>
+
+      <form>
+        <div class="form-group">
+          <label for="">First Name</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Joe"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="">Last Name</label>
+          <input
+            type="text"
+            id="last"
+            name="username"
+            placeholder="Smith"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email address"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Min 8 characters"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="">Confirm Password</label>
+          <input
+            type="password"
+            id="confirm"
+            name="confirm"
+            placeholder="Re-enter password"
+            required
+          />
+        </div>
+
+        <button type="button" onclick="sign(this)">Register</button>
+
+        <p class="login-text">
+          Already a member? <a href="login.html">Sign In</a>
+        </p>
+      </form>
+    </div>
+  </body>
+</html>
+
+<script>
+  let username = document.getElementById("username");
+  let last = document.getElementById("last");
+  let email = document.getElementById("email");
+  let password = document.getElementById("password");
+  let Confirm = document.getElementById("confirm");
+  let array = JSON.parse(localStorage.getItem("INFO")) || [];
+
+  function sign(params) {
+    params.innerHTML = "Loading...";
+    params.style.cursor = "not-allowed";
+    params.style.backgroundColor = "#5d5dff9b";
+
+    setTimeout(() => {
+      if (
+        !username.value ||
+        !last.value ||
+        !email.value.trim() ||
+        !password.value.trim() ||
+        !Confirm.value.trim()
+      ) {
+        alert("All fields are mandatory");
+        params.innerHTML = "Register";
+        params.style.cursor = "pointer";
+        params.style.backgroundColor = "#5d5dff";
+        return;
+      }
+
+      if (password.value.trim() !== Confirm.value.trim()) {
+        alert("Incorrect Passwords");
+        params.innerHTML = "Register";
+        params.style.backgroundColor = "#5d5dff";
+        params.style.cursor = "pointer";
+        return;
+      }
+      if (password.value.trim().length < 8) {
+        alert("Password should be greater than 7");
+        params.innerHTML = "Register";
+        params.style.cursor = "pointer";
+        params.style.backgroundColor = "#5d5dff";
+        return;
+      }
+
+      if (
+        array.find((index) => {
+          return index.email === email.value.trim();
+        })
+      ) {
+        alert("User already exist");
+        params.innerHTML = "Register";
+        params.style.cursor = "pointer";
+        params.style.backgroundColor = "#5d5dff";
+        return;
+      }
+      params.innerHTML = "Register";
+      params.style.cursor = "pointer";
+      params.style.backgroundColor = "#5d5dff";
+      let object = {
+        name: username.value.trim(),
+        last: last.value.trim(),
+        email: email.value.trim(),
+        password: password.value.trim(),
+      };
+      array.push(object);
+
+      localStorage.setItem("INFO", JSON.stringify(array));
+      let check = JSON.parse(localStorage.getItem("INFO"));
+      console.log(check);
+      alert("Account creation successfully");
+      location.href = "login.html";
+
+      last.value = "";
+      username.value = "";
+      email.value = "";
+      password.value = "";
+      Confirm.value = "";
+    }, 3000);
+  }
+</script>
