@@ -156,6 +156,10 @@
       params.innerHTML = "Sign In";
       params.style.backgroundColor = "#5d5dff";
       params.style.cursor = "pointer";
+      if (!logEmail.value.trim() && !logPass.value.trim()) {
+        alert("All Fields Are Mandatory");
+        return;
+      }
       let found = check.find(function (params) {
         return (
           logEmail.value.trim() === params.email &&
