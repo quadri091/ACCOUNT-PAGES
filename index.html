@@ -182,6 +182,9 @@
     params.style.backgroundColor = "#5d5dff9b";
 
     setTimeout(() => {
+      params.innerHTML = "Register";
+      params.style.cursor = "pointer";
+      params.style.backgroundColor = "#5d5dff";
       if (
         !username.value ||
         !last.value ||
@@ -190,24 +193,15 @@
         !Confirm.value.trim()
       ) {
         alert("All fields are mandatory");
-        params.innerHTML = "Register";
-        params.style.cursor = "pointer";
-        params.style.backgroundColor = "#5d5dff";
         return;
       }
 
       if (password.value.trim() !== Confirm.value.trim()) {
         alert("Incorrect Passwords");
-        params.innerHTML = "Register";
-        params.style.backgroundColor = "#5d5dff";
-        params.style.cursor = "pointer";
         return;
       }
       if (password.value.trim().length < 8) {
         alert("Password should be greater than 7");
-        params.innerHTML = "Register";
-        params.style.cursor = "pointer";
-        params.style.backgroundColor = "#5d5dff";
         return;
       }
 
@@ -217,14 +211,9 @@
         })
       ) {
         alert("User already exist");
-        params.innerHTML = "Register";
-        params.style.cursor = "pointer";
-        params.style.backgroundColor = "#5d5dff";
         return;
       }
-      params.innerHTML = "Register";
-      params.style.cursor = "pointer";
-      params.style.backgroundColor = "#5d5dff";
+
       let object = {
         name: username.value.trim(),
         last: last.value.trim(),

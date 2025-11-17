@@ -153,6 +153,9 @@
     params.style.cursor = "not-allowed";
     params.style.backgroundColor = "#5d5dff9b";
     setTimeout(() => {
+      params.innerHTML = "Sign In";
+      params.style.backgroundColor = "#5d5dff";
+      params.style.cursor = "pointer";
       let found = check.find(function (params) {
         return (
           logEmail.value.trim() === params.email &&
@@ -166,14 +169,9 @@
         location.href = "dashboard.html";
         logEmail.value = "";
         logPass.value = "";
-        params.innerHTML = "Sign In";
-        params.style.cursor = "pointer";
         return;
       }
       alert("User not found");
-      params.innerHTML = "Sign In";
-      params.style.backgroundColor = "#5d5dff";
-      params.style.cursor = "pointer";
     }, 3000);
   }
 </script>
