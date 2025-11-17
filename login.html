@@ -168,10 +168,15 @@
 
       if (found) {
         alert(`Welcome ${found.last}`);
-        localStorage.setItem("new", found.last);
-        location.href = "dashboard.html";
+        let num = check.findIndex((card) => {
+          return card.email === found.email;
+        });
+
+        localStorage.setItem("new", check[num].last);
+
         logEmail.value = "";
         logPass.value = "";
+        location.href = "dashboard.html";
         return;
       }
       alert("User not found");
