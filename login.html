@@ -135,7 +135,7 @@
         </button>
 
         <p class="signup-text">
-          New here? <a href="start.html">Create Account</a>
+          New here? <a href="index.html">Create Account</a>
         </p>
       </form>
     </div>
@@ -172,7 +172,7 @@
           return card.email === found.email;
         });
 
-        localStorage.setItem("new", check[num].last);
+        localStorage.setItem("new", num);
 
         logEmail.value = "";
         logPass.value = "";

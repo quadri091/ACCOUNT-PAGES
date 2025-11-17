@@ -135,7 +135,7 @@
       <a href="#">Profile</a>
       <a href="#">Settings</a>
       <a href="#">Messages</a>
-      <a href="index.html">Logout</a>
+      <a href="#" onclick="out()">Logout</a>
     </div>
 
     <div class="main">
@@ -167,13 +167,27 @@
 </html>
 
 <script>
-  let result = localStorage.getItem("new");
-  result = result[0].toUpperCase() + result.slice(1).toLowerCase();
-  const userSpan = document.getElementById("user");
-  const admin = document.getElementById("admin");
+  let check = JSON.parse(localStorage.getItem("INFO")) || [];
+  console.log(check);
 
-  if (result) {
-    userSpan.innerHTML = result;
-    admin.innerHTML = result;
+  if (check.length === 0) {
+    location.href = "login.html";
+  } else {
+    let result = localStorage.getItem("new");
+    result = result[0].toUpperCase() + result.slice(1).toLowerCase();
+    const userSpan = document.getElementById("user");
+    const admin = document.getElementById("admin");
+
+    if (result) {
+      userSpan.innerHTML = check[result].last;
+      admin.innerHTML = check[result].last;
+    }
+
+    function out() {
+      check.splice(result, 1);
+      console.log(check);
+      localStorage.setItem("INFO", JSON.stringify(check));
+      location.href = "login.html";
+    }
   }
 </script>
