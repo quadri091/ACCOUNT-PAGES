@@ -167,7 +167,7 @@
       });
 
       if (found) {
-        alert("Login Succesful");
+        alert(`Welcome ${found.last}`);
         localStorage.setItem("new", found.last);
         location.href = "dashboard.html";
         logEmail.value = "";
