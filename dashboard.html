@@ -93,6 +93,25 @@
       .card:hover {
         transform: translateY(-6px);
       }
+      .spinner {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #3498db;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        animation: spin 1s linear infinite;
+        display: flex;
+        margin: auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
       @media (max-width: 865px) {
         .card {
           width: 30%;
@@ -135,7 +154,7 @@
       <a href="#">Profile</a>
       <a href="#">Settings</a>
       <a href="#">Messages</a>
-      <a href="#" onclick="out()">Logout</a>
+      <a href="#" onclick="logout(this)">Logout</a>
     </div>
 
     <div class="main">
@@ -174,7 +193,6 @@
     location.href = "login.html";
   } else {
     let result = localStorage.getItem("new");
-    result = result[0].toUpperCase() + result.slice(1).toLowerCase();
     const userSpan = document.getElementById("user");
     const admin = document.getElementById("admin");
 
@@ -183,8 +201,10 @@
       admin.innerHTML = check[result].last;
     }
 
-    setTimeout(() => {
-      function out() {
+    function logout(params) {
+      params.innerHTML = '<span class="spinner"></span>';
+      setTimeout(() => {
+        params.innerHTML = "Logout";
         let conf = confirm("Are you sure you want to log out");
         if (conf) {
           check.splice(result, 1);
@@ -194,7 +214,7 @@
         } else {
           alert("Account restored");
         }
-      }
-    }, 3000);
+      }, 3000);
+    }
   }
 </script>
