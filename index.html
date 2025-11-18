@@ -180,10 +180,12 @@
     params.innerHTML = "Loading...";
     params.style.cursor = "not-allowed";
     params.style.backgroundColor = "#5d5dff9b";
+    params.disabled = true;
 
     setTimeout(() => {
       params.innerHTML = "Register";
       params.style.cursor = "pointer";
+      params.disabled = false;
       params.style.backgroundColor = "#5d5dff";
       if (
         !username.value ||

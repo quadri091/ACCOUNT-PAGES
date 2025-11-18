@@ -183,16 +183,18 @@
       admin.innerHTML = check[result].last;
     }
 
-    function out() {
-      let conf = confirm("Are you sure you want to log out");
-      if (conf) {
-        check.splice(result, 1);
-        console.log(check);
-        localStorage.setItem("INFO", JSON.stringify(check));
-        location.href = "login.html";
-      } else {
-        alert("Account restored");
+    setTimeout(() => {
+      function out() {
+        let conf = confirm("Are you sure you want to log out");
+        if (conf) {
+          check.splice(result, 1);
+          console.log(check);
+          localStorage.setItem("INFO", JSON.stringify(check));
+          location.href = "login.html";
+        } else {
+          alert("Account restored");
+        }
       }
-    }
+    }, 3000);
   }
 </script>

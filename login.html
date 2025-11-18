@@ -149,11 +149,13 @@
 
   function login(params) {
     params.innerHTML = "Loading...";
+    params.disabled = true;
     params.style.cursor = "not-allowed";
     params.style.backgroundColor = "#5d5dff9b";
     setTimeout(() => {
       params.innerHTML = "Sign In";
       params.style.backgroundColor = "#5d5dff";
+      params.disabled = false;
       params.style.cursor = "pointer";
       if (!logEmail.value.trim() && !logPass.value.trim()) {
         alert("All Fields Are Mandatory");
