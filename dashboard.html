@@ -103,7 +103,10 @@
         display: flex;
         margin: auto;
       }
-
+      input[type="file"] {
+        border: 1px solid black;
+        background-color: white;
+      }
       @keyframes spin {
         0% {
           transform: rotate(0deg);
@@ -159,7 +162,32 @@
 
     <div class="main">
       <div class="topbar">
-        <h1>Welcome, <span id="user">User</span></h1>
+        <div class="left">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 10px;
+            "
+            class="img-holder"
+          >
+            <img
+              id="images"
+              style="
+                border: 3px solid white;
+                border-radius: 50%;
+                width: 70px;
+                height: 70px;
+              "
+              src=""
+              alt=""
+            />
+            <input type="file" onchange="pick(this)" />
+          </div>
+          <h1>Welcome, <span id="user">User</span></h1>
+        </div>
+
         <div class="user-info">👤 <span id="admin">Admin</span></div>
       </div>
 
@@ -186,7 +214,9 @@
 </html>
 
 <script>
+  let images = document.getElementById("images");
   let check = JSON.parse(localStorage.getItem("INFO")) || [];
+
   console.log(check);
 
   if (check.length === 0) {
@@ -195,6 +225,9 @@
     let result = localStorage.getItem("new");
     const userSpan = document.getElementById("user");
     const admin = document.getElementById("admin");
+    images.src =
+      check[result].file ||
+      "https://i.pinimg.com/736x/88/10/6c/88106c7a9d035e3d664089b36c99c2d4.jpg";
 
     if (result) {
       userSpan.innerHTML = check[result].last;
@@ -215,6 +248,21 @@
           alert("Account restored");
         }
       }, 3000);
+    }
+
+    let profile;
+    function pick(params) {
+      let file = params.files[0];
+      let preview = new FileReader();
+
+      preview.onload = () => {
+        profile = preview.result;
+        images.src = profile;
+        check[result].file = profile;
+        console.log(check);
+        localStorage.setItem("INFO", JSON.stringify(check));
+      };
+      preview.readAsDataURL(params.files[0]);
     }
   }
 </script>
